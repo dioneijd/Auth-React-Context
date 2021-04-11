@@ -41,12 +41,14 @@ export function AuthProvider({ children }: AuthProviderProps){
 
 
     async function signIn(){
+        setIsLoading(true)
         const response = await auth.singIn()
         setUser(response.user)
         localStorage.setItem('@RNAuth:user', JSON.stringify(response.user))
         localStorage.setItem('@RNAuth:token', response.token)
 
         api.defaults.headers.Authorization = `Bearer ${response.token}`
+        setIsLoading(false)
         
     }
     
